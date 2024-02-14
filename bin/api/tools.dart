@@ -15,7 +15,7 @@ class Tools {
 
   static Future<Response> getFile(String fileName, Request request) async {
     return createStaticHandler(
-      'public',
+      'files',
       defaultDocument: fileName,
     )(request);
   }
