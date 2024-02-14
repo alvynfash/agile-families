@@ -3,13 +3,10 @@ import 'dart:io';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
 import 'package:shelf_router/shelf_router.dart';
-import 'package:shelf_static/shelf_static.dart';
 
 import 'api/root_handler.dart';
 import 'api/api_handler.dart';
-import 'api/vidsrc_verification_handler.dart';
-
-// ..get('/toon', toonHandler);
+import 'file_controller.dart';
 
 Response _pingHandler(Request request) => Response.ok('Pong');
 
@@ -23,8 +20,8 @@ void main(List<String> args) async {
   final router = Router()
     ..get('/ping', _pingHandler)
     ..get('/', rootHandler)
-    ..get('/assets/<file>', createStaticHandler('public'))
-    ..get('/deab6710f84b7f4503359b80e4e738fb.txt', vidsrcVerificationHandler)
+    ..get('/api', apiHandler)
+    ..get('/<file>', FileController().findOne())
     ..all('/api/<ignored|.*>', apiHandler);
 
   // Configure a pipeline that logs requests.
