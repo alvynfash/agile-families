@@ -2,9 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:path/path.dart';
 import 'package:shelf/shelf.dart';
-import 'package:shelf_static/shelf_static.dart';
 
 class Tools {
   static Response createEncodedResponse(Object object) {
@@ -15,23 +13,20 @@ class Tools {
     return Response.ok(jsonStr, headers: {'Content-Type': 'application/json'});
   }
 
-  static FutureOr<Response> getFile(String fileName, Request request) async {
-    // Get the URI of the Dart script file
-    var scriptUri = Platform.script;
+  static FutureOr<Response> getFile(String fileName) async {
+    // // Get the URI of the Dart script file
+    // var scriptUri = Platform.script;
 
-    // Get the path of the directory containing the Dart script file
-    var scriptPath = Directory.fromUri(scriptUri).path;
+    // // Get the path of the directory containing the Dart script file
+    // var scriptPath = Directory.fromUri(scriptUri).path;
 
-    // Construct the path to the directory containing the HTML files
-    var pathToHtmlFiles = dirname(scriptPath);
+    // // Construct the path to the directory containing the HTML files
+    // var pathToHtmlFiles = dirname(scriptPath);
 
-    // final html = File(filePath).readAsStringSync();
-    // return Response.ok(html);
+    // // final html = File(filePath).readAsStringSync();
+    // // return Response.ok(html);
 
-    return createStaticHandler(
-      '$pathToHtmlFiles/files',
-      defaultDocument: fileName,
-      serveFilesOutsidePath: true,
-    )(request);
+    var html = File('public/$fileName').readAsStringSync();
+    return Response.ok(html, headers: {'Content-Type': 'text/html'});
   }
 }

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
 import 'package:shelf_router/shelf_router.dart';
+import 'package:shelf_static/shelf_static.dart';
 
 import 'api/root_handler.dart';
 import 'api/api_handler.dart';
@@ -22,6 +23,7 @@ void main(List<String> args) async {
   final router = Router()
     ..get('/ping', _pingHandler)
     ..get('/', rootHandler)
+    ..get('/assets/<file>', createStaticHandler('public'))
     ..get('/deab6710f84b7f4503359b80e4e738fb.txt', vidsrcVerificationHandler)
     ..all('/api/<ignored|.*>', apiHandler);
 
