@@ -1,10 +1,10 @@
-import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as parser;
 import 'dart:async';
 
 import 'package:shelf/shelf.dart';
+
+import 'tools.dart';
 
 Future<Map<String, dynamic>> scrapeLatestToon() async {
   var baseUrl = 'https://www.modernanalyst.com';
@@ -44,10 +44,6 @@ Future<Response> toonHandler(Request req) async {
     var toonDateStr = toonData['date'].toString();
     toonData['date'] = toonDateStr;
 
-    // Encode toonData to JSON with indentation
-    var jsonStr = JsonEncoder.withIndent('  ').convert(toonData);
-
-    // Return JSON response with content-type header
-    return Response.ok(jsonStr, headers: {'Content-Type': 'application/json'});
+    return Tools.createEncodedResponse(toonData);
   }
 }
