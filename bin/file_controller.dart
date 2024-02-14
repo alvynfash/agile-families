@@ -3,6 +3,6 @@ import 'package:shelf_static/shelf_static.dart';
 
 class FileController {
   Handler findOne() {
-    return createStaticHandler('files');
+    return createStaticHandler('../files');
   }
 }
