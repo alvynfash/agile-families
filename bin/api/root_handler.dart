@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:path/path.dart';
 import 'package:shelf/shelf.dart';
 
 import 'tools.dart';
@@ -6,14 +9,14 @@ import 'tools.dart';
 
 Future<Response> rootHandler(Request request) async {
   // while (true) {
-  //   // Get the URI of the Dart script file
-  //   var scriptUri = Platform.script;
+  // Get the URI of the Dart script file
+  var scriptUri = Platform.script;
 
-  //   // Get the path of the directory containing the Dart script file
-  //   var scriptPath = Directory.fromUri(scriptUri).path;
+  // Get the path of the directory containing the Dart script file
+  var scriptPath = Directory.fromUri(scriptUri).path;
 
-  //   // Construct the path to the directory containing the HTML files
-  //   var pathToHtmlFiles = dirname(scriptPath);
+  // Construct the path to the directory containing the HTML files
+  var pathToHtmlFiles = dirname(scriptPath);
 
   //   // Set up a shelf handler for serving static files
   //   final staticHandler = createStaticHandler(
@@ -24,5 +27,5 @@ Future<Response> rootHandler(Request request) async {
   //   return staticHandler(request);
   // }
 
-  return Tools.getFile('bin/index.html');
+  return Tools.getFile('$pathToHtmlFiles/index.html');
 }
